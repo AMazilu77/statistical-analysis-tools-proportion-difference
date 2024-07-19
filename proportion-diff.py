@@ -113,7 +113,7 @@ def main():
         if code == 1:
             print("Calculate one sided (1-tail) chance for a certain # of successes, given significance level")
             if not parms_set:
-                print("You must first use command code 3 or 4 to enter either n1,p1 n2,p2 or n1,k1 n2.k2 values")
+                print("You must first use command code 3 or 4 to enter either n1,p1 n2,p2 or n1,x1 n2.x2 values")
                 future_code = code  # return to this code after setting the parameters
                 code = 4  # go set the parameters
                 continue  # go back and loop again
@@ -138,7 +138,7 @@ def main():
         elif code == 2:
             print("Calculate the confidence interval for a given confidence level, such as 0.98 (98%)")
             if not parms_set:
-                print("You must first use command code 3 or 4 to enter either n1,p1 n2,p2 or n1,k1 n2.k2 values")
+                print("You must first use command code 3 or 4 to enter either n1,p1 n2,p2 or n1,x1 n2.x2 values")
                 future_code = code  # return to this code after setting the parameters
                 code = 4  # go set the parameters
                 continue  # go back and loop again
@@ -156,12 +156,12 @@ def main():
             print(f" Rounding final answers to {r} decimal places (code 7 to change this)")
             n1 = get_user_int_input("N1 (number of observations in sample #1): ", None, 2)
             p1 = get_user_float_input("p1 proportion of successes in B1 (prob, p-hat 1) in sample #1: ", None, 0.000001, 0.999999)
-            k1 = int(p1 * n1)  # calculate how many successes, just in case we need it
+            x1 = int(p1 * n1)  # calculate how many successes, just in case we need it
             print(f"Ch. 6 Sampling Distribution of differences for {n1} trials with a success probability (proportion) of {round(p1, r)}")
             fail1 = 1 - p1  # chance of a failure
             n2 = get_user_int_input("N2 (number of observations in sample 2): ", None, 2)
             p2 = get_user_float_input("p2 proportion of successes in B2 (prob, p-hat 2) in sample #2: ", None, 0.000001, 0.999999)
-            k2 = int(p2 * n2)
+            x2 = int(p2 * n2)
             print(f"Ch. 6 Sampling Distribution for {n2} trials with a {round(p2, r)} prob of success")
             fail2 = 1 - p2  # chance of a failure
             d = p1 - p2
@@ -173,17 +173,17 @@ def main():
                 future_code = 0
                 continue  # go back to top
         elif code == 4:
-            print("Enter a new set of n1 trials, k1 successes (p-hat1 calculated as k1/n1), and n2, k2")
+            print("Enter a new set of n1 trials, x1 successes (p-hat1 calculated as x1/n1), and n2, x2")
             print(f" Rounding final answers to {r} decimal places (code 7 to change this)")
             n1 = get_user_int_input("N1 (number of observations in sample 1): ", None, 2)
-            k1 = get_user_int_input("K1 (number of successes in sample 1): ", None, 1, n1)
-            p1 = float(k1) / float(n1)
-            print(f"Ch. 6 Sampling Dist. of differences for {n1} trials with a {round(p1, r)} prob of success (=k1/n1)")
+            x1 = get_user_int_input("x1 (number of successes in sample 1): ", None, 1, n1)
+            p1 = float(x1) / float(n1)
+            print(f"Ch. 6 Sampling Dist. of differences for {n1} trials with a {round(p1, r)} prob of success (=x1/n1)")
             fail1 = 1 - p1  # chance of a failure
             n2 = get_user_int_input("N2 (number of observations in sample 2): ", None, 2)
-            k2 = get_user_int_input("K2 (number of successes in sample 2): ", None, 1, n2)
-            p2 = float(k2) / float(n2)
-            print(f"Ch. 6 Sampling Dist. of differences for {n2} trials with a {round(p2, r)} prob of success (=k2/n2)")
+            x2 = get_user_int_input("x2 (number of successes in sample 2): ", None, 1, n2)
+            p2 = float(x2) / float(n2)
+            print(f"Ch. 6 Sampling Dist. of differences for {n2} trials with a {round(p2, r)} prob of success (=x2/n2)")
             fail2 = 1 - p2  # chance of a failure
             d = p1 - p2
             sdev = math.sqrt(p1 * fail1 / float(n1) + p2 * fail2 / float(n2))
@@ -196,7 +196,7 @@ def main():
         elif code == 5:
             print("Calculate d-hat given Z")
             if not parms_set:
-                print("You must first use command code 3 or 4 to enter either n1, p1 n2, p2 or n1, k1 n2, k2 values")
+                print("You must first use command code 3 or 4 to enter either n1, p1 n2, p2 or n1, x1 n2, x2 values")
                 future_code = code  # return to this code after setting the parameters
                 code = 4  # go set the parameters
                 continue  # go back and loop again
